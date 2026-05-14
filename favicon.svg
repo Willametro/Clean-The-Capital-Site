@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="10" fill="#1f5f3f"/>
+  <!-- Capitol cylinder -->
+  <rect x="22" y="26" width="20" height="22" fill="#fafaf6"/>
+  <rect x="20" y="24" width="24" height="4" fill="#fafaf6"/>
+  <rect x="18" y="48" width="28" height="4" fill="#fafaf6"/>
+  <!-- Pioneer figure on top (tiny) -->
+  <rect x="30" y="18" width="4" height="6" fill="#f5b942"/>
+  <!-- Leaf rising behind -->
+  <path d="M44 32 Q54 22 50 12 Q40 16 44 32 Z" fill="#4ea96b"/>
+</svg>

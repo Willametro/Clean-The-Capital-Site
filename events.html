@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cleanup Events &amp; Schedule | Clean The Capital — Salem, OR</title>
+<meta name="description" content="Schedule of upcoming Clean The Capital trash cleanups in Salem, Oregon. Every other Saturday, 2–5 PM, at a different park or civic location.">
+<link rel="canonical" href="https://cleanthecapital.org/events.html">
+<meta property="og:title" content="Cleanup Schedule — Clean The Capital">
+<meta property="og:description" content="Bi-weekly Saturday trash cleanups across Salem, OR. See dates, locations, and meet points.">
+<meta property="og:url" content="https://cleanthecapital.org/events.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script defer src="events.js"></script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header id="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="logo.svg" alt="Clean The Capital"></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="events.html" class="active">Events</a>
+      <a href="about.html">About</a>
+      <a href="partners.html">Partners</a>
+      <a href="donate.html">Donate</a>
+      <a href="contact.html">Contact</a>
+      <a href="get-involved.html" class="nav-cta">Volunteer</a>
+    </nav>
+    <button id="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+  <div id="mobile-menu">
+    <a href="index.html">Home</a><a href="events.html">Events</a><a href="about.html">About</a>
+    <a href="partners.html">Partners</a><a href="donate.html">Donate</a><a href="contact.html">Contact</a>
+    <a href="get-involved.html">Volunteer</a>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="page-head">
+  <div class="container">
+    <span class="eyebrow">Schedule</span>
+    <h1>Upcoming cleanups</h1>
+    <p class="lead">Every other Saturday, 2–5 PM. Bring water, closed-toe shoes, and a good attitude — we supply gloves, grabbers, vests, and trash bags.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div id="map"></div>
+    <div class="map-legend">
+      <span><i class="dot dot-next"></i> Next cleanup</span>
+      <span><i class="dot dot-future"></i> Upcoming</span>
+      <span><i class="dot dot-past"></i> Completed</span>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <h2 style="margin-bottom:1.5rem">All dates</h2>
+    <div class="event-grid" data-event-list></div>
+    <p class="muted" style="margin-top:2rem; font-size:.92rem">
+      Fall schedule will be announced in late summer. Want the schedule emailed to you? <a href="get-involved.html">Sign up here</a>.
+    </p>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="two-col">
+      <div>
+        <span class="eyebrow">What to expect</span>
+        <h2>How a cleanup runs</h2>
+        <ul class="checklist">
+          <li>Arrive at the meet point a few minutes before 2 PM</li>
+          <li>Quick safety briefing and supply handout (5–10 minutes)</li>
+          <li>Split into small groups, each with a designated route</li>
+          <li>Walk and clean for about 2 hours</li>
+          <li>Regroup at the meet point to weigh in bags and wrap up</li>
+        </ul>
+      </div>
+      <div>
+        <span class="eyebrow">Come prepared</span>
+        <h2>Bring with you</h2>
+        <ul class="checklist">
+          <li>Water bottle (refillable if possible)</li>
+          <li>Closed-toe shoes and clothes you don't mind getting dirty</li>
+          <li>Sunscreen and a hat in warm months</li>
+          <li>A friend, neighbor, or family member — kids welcome with a guardian</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><img src="logo.svg" alt=""><p>Community-led cleanups and public-space advocacy in Salem, Oregon.</p></div>
+      <div><h4>Get involved</h4><a href="events.html">Events</a><a href="get-involved.html">Volunteer</a><a href="donate.html">Donate</a></div>
+      <div><h4>About</h4><a href="about.html">Our mission</a><a href="partners.html">Partners</a><a href="contact.html">Contact</a></div>
+      <div><h4>Stay in touch</h4><a href="contact.html">hello@cleanthecapital.org</a><a href="get-involved.html">Volunteer signup</a></div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span data-year>2026</span> Clean The Capital · Salem, OR</div>
+      <div><a href="legal/privacy.html">Privacy</a> · <a href="legal/transparency.html">Transparency</a></div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

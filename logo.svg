@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 80" role="img" aria-label="Clean The Capital">
+  <!-- Mark: Capitol cylinder with rising leaf -->
+  <g transform="translate(4,8)">
+    <!-- Leaf behind -->
+    <path d="M48 38 Q72 18 64 -4 Q40 4 48 38 Z" fill="#4ea96b"/>
+    <path d="M48 38 Q60 26 60 8" stroke="#1f5f3f" stroke-width="1.5" fill="none" opacity="0.6"/>
+    <!-- Capitol base -->
+    <rect x="14" y="34" width="32" height="28" fill="#1f5f3f"/>
+    <rect x="10" y="30" width="40" height="5" fill="#1f5f3f"/>
+    <rect x="6"  y="60" width="48" height="5" fill="#1f5f3f"/>
+    <!-- Columns -->
+    <rect x="18" y="42" width="2" height="16" fill="#fafaf6"/>
+    <rect x="24" y="42" width="2" height="16" fill="#fafaf6"/>
+    <rect x="30" y="42" width="2" height="16" fill="#fafaf6"/>
+    <rect x="36" y="42" width="2" height="16" fill="#fafaf6"/>
+    <rect x="42" y="42" width="2" height="16" fill="#fafaf6"/>
+    <!-- Pioneer figure -->
+    <rect x="28" y="22" width="4" height="8" fill="#f5b942"/>
+    <circle cx="30" cy="20" r="2" fill="#f5b942"/>
+  </g>
+  <!-- Wordmark -->
+  <g font-family="'Bricolage Grotesque','Inter',system-ui,sans-serif" font-weight="700">
+    <text x="78" y="38" font-size="22" fill="#1f5f3f" letter-spacing="0.5">CLEAN THE</text>
+    <text x="78" y="62" font-size="22" fill="#1a2421" letter-spacing="0.5">CAPITAL<tspan fill="#4ea96b">.</tspan></text>
+  </g>
+</svg>

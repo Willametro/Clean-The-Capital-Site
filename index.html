@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clean The Capital — Community Trash Cleanups in Salem, OR</title>
+<meta name="description" content="Clean The Capital organizes free bi-weekly Saturday trash cleanups across Salem, Oregon. Join neighbors and local partners to keep our capital city beautiful.">
+<link rel="canonical" href="https://cleanthecapital.org/">
+<meta property="og:title" content="Clean The Capital — Community Trash Cleanups in Salem, OR">
+<meta property="og:description" content="Free bi-weekly Saturday cleanups across Salem. Supplies provided. Walk, clean, meet neighbors.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cleanthecapital.org/">
+<meta property="og:site_name" content="Clean The Capital">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="geo.region" content="US-OR">
+<meta name="geo.placename" content="Salem">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script defer src="events.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Clean The Capital",
+  "url": "https://cleanthecapital.org",
+  "logo": "https://cleanthecapital.org/logo.svg",
+  "description": "Community-led trash cleanups and public-space advocacy in Salem, Oregon. Bi-weekly Saturday cleanups and partner-funded city beautification.",
+  "areaServed": { "@type": "City", "name": "Salem" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Salem", "addressRegion": "OR", "addressCountry": "US" },
+  "foundingDate": "2026"
+}
+</script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<header id="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo" aria-label="Clean The Capital home">
+      <img src="logo.svg" alt="Clean The Capital">
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html" class="active">Home</a>
+      <a href="events.html">Events</a>
+      <a href="about.html">About</a>
+      <a href="partners.html">Partners</a>
+      <a href="donate.html">Donate</a>
+      <a href="contact.html">Contact</a>
+      <a href="get-involved.html" class="nav-cta">Volunteer</a>
+    </nav>
+    <button id="nav-toggle" aria-label="Menu" aria-controls="mobile-menu">☰</button>
+  </div>
+  <div id="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="events.html">Events</a>
+    <a href="about.html">About</a>
+    <a href="partners.html">Partners</a>
+    <a href="donate.html">Donate</a>
+    <a href="contact.html">Contact</a>
+    <a href="get-involved.html">Volunteer</a>
+  </div>
+</header>
+
+<main id="main">
+
+<section id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Salem, Oregon</span>
+        <h1>Salem is our home.<br><span class="hl">Let's keep it that way.</span></h1>
+        <p class="lead">Clean The Capital runs free bi-weekly Saturday cleanups across our city. Bring your hands — we bring the gloves, grabbers, and bags. Walk together, clean together, meet your neighbors.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary btn--lg" href="get-involved.html">Join the next cleanup</a>
+          <a class="btn btn-outline btn--lg" href="events.html">See all dates</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="n">Every other Sat</div><div class="l">2:00 – 5:00 PM</div></div>
+          <div class="hero-stat"><div class="n">5 locations</div><div class="l">Spring & summer 2026</div></div>
+          <div class="hero-stat"><div class="n">$0</div><div class="l">Free to attend</div></div>
+        </div>
+      </div>
+      <aside class="next-event-card" data-next-event aria-label="Next cleanup"></aside>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <span class="eyebrow">Our pillars</span>
+    <h2>Three ways we're working on it</h2>
+    <p class="muted" style="max-width:640px;margin-bottom:2.5rem">Cleanups are only the beginning. Our long-term project is building infrastructure and partnerships that keep Salem clean year-round.</p>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14"/></svg>
+        </div>
+        <h3>Bi-weekly cleanups</h3>
+        <p>Every other Saturday, 2–5 PM. We meet, hand out supplies, and walk together in small groups. Open to everyone — no signup fee, no experience needed.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3>More public trash cans</h3>
+        <p>Litter happens where receptacles don't exist. We're mapping high-need spots and raising funds to install and maintain additional public bins across the city.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Partner-powered impact</h3>
+        <p>Local businesses, civic groups, and city departments make this real. Sponsor supplies, host a meet point, or join our list of supporting partners.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <span class="eyebrow">Upcoming locations</span>
+    <h2>Where we're walking next</h2>
+    <p class="muted" style="max-width:640px">Five cleanups across Salem this spring and summer. Every meeting point is in a public park or civic space, with parking and transit access nearby.</p>
+    <div id="map" style="margin-top:2rem"></div>
+    <div class="map-legend">
+      <span><i class="dot dot-next"></i> Next cleanup</span>
+      <span><i class="dot dot-future"></i> Upcoming</span>
+      <span><i class="dot dot-past"></i> Completed</span>
+    </div>
+    <div style="margin-top:2rem; text-align:center">
+      <a class="btn btn-primary" href="events.html">View full schedule →</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="callout">
+      <div>
+        <h2>Want to help fund a cleaner Salem?</h2>
+        <p>Donations go directly to supplies, public trash cans, and cleanup logistics. Every dollar is tracked and reported publicly.</p>
+      </div>
+      <a class="btn btn-accent btn--lg" href="donate.html">Support the work</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="logo.svg" alt="Clean The Capital">
+        <p>Community-led cleanups and public-space advocacy in Salem, Oregon.</p>
+      </div>
+      <div>
+        <h4>Get involved</h4>
+        <a href="events.html">Events</a>
+        <a href="get-involved.html">Volunteer</a>
+        <a href="donate.html">Donate</a>
+      </div>
+      <div>
+        <h4>About</h4>
+        <a href="about.html">Our mission</a>
+        <a href="partners.html">Partners</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h4>Stay in touch</h4>
+        <a href="contact.html">hello@cleanthecapital.org</a>
+        <a href="get-involved.html">Volunteer signup</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span data-year>2026</span> Clean The Capital · Salem, OR</div>
+      <div><a href="legal/privacy.html">Privacy</a> · <a href="legal/transparency.html">Transparency</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
