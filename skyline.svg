@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 280" preserveAspectRatio="xMidYEnd meet" aria-hidden="true" role="presentation">
+  <!-- Distant skyline layer (very subtle) -->
+  <g fill="#1f5f3f" opacity="0.06">
+    <rect x="60"   y="200" width="50" height="80"/>
+    <rect x="170"  y="180" width="60" height="100"/>
+    <rect x="320"  y="195" width="55" height="85"/>
+    <rect x="470"  y="185" width="40" height="95"/>
+    <rect x="1430" y="200" width="55" height="80"/>
+    <rect x="1500" y="180" width="60" height="100"/>
+    <rect x="1640" y="200" width="50" height="80"/>
+    <rect x="1790" y="215" width="55" height="65"/>
+  </g>
+
+  <!-- Foreground layer — Salem's recognizable buildings -->
+  <g fill="#1f5f3f" opacity="0.13">
+
+    <!-- Left edge: trees and low residential -->
+    <path d="M0 280 L0 252 Q22 234 44 252 Q60 222 76 248 Q92 232 110 250 L110 280 Z"/>
+    <rect x="140" y="200" width="40" height="80"/>
+    <rect x="190" y="190" width="50" height="90"/>
+
+    <!-- Downtown blocks approaching the Capitol -->
+    <rect x="260" y="175" width="60" height="105"/>
+    <rect x="335" y="195" width="50" height="85"/>
+    <rect x="400" y="170" width="70" height="110"/>
+    <rect x="485" y="185" width="55" height="95"/>
+    <rect x="555" y="160" width="65" height="120"/>
+    <rect x="635" y="190" width="55" height="90"/>
+
+    <!-- Civic plaza / Capitol Mall low building -->
+    <rect x="700" y="215" width="60" height="65"/>
+
+    <!-- ════════════════════════════════════════
+         OREGON STATE CAPITOL (centerpiece)
+         ════════════════════════════════════════ -->
+
+    <!-- Long classical-revival base (the wings stretching east/west) -->
+    <rect x="760" y="200" width="480" height="80"/>
+
+    <!-- Stepped portico level with column suggestions -->
+    <rect x="820" y="170" width="360" height="30"/>
+  </g>
+
+  <!-- Capitol column lines (negative-space columns on portico) -->
+  <g fill="#fafaf6" opacity="0.35">
+    <rect x="830"  y="172" width="2.5" height="28"/>
+    <rect x="855"  y="172" width="2.5" height="28"/>
+    <rect x="880"  y="172" width="2.5" height="28"/>
+    <rect x="905"  y="172" width="2.5" height="28"/>
+    <rect x="1095" y="172" width="2.5" height="28"/>
+    <rect x="1120" y="172" width="2.5" height="28"/>
+    <rect x="1145" y="172" width="2.5" height="28"/>
+    <rect x="1170" y="172" width="2.5" height="28"/>
+  </g>
+
+  <g fill="#1f5f3f" opacity="0.13">
+    <!-- Main central building block -->
+    <rect x="860" y="100" width="280" height="70"/>
+
+    <!-- Stepped collar below the drum -->
+    <rect x="890" y="92" width="220" height="10"/>
+
+    <!-- Distinctive flat-topped drum (cylinder) — Oregon's Capitol doesn't have a dome -->
+    <rect x="935" y="34" width="130" height="58"/>
+
+    <!-- Drum cap (flat top platform) -->
+    <rect x="928" y="26" width="144" height="10"/>
+
+    <!-- Pioneer pedestal -->
+    <rect x="989" y="14" width="22" height="14"/>
+  </g>
+
+  <!-- Drum vertical fluting (light lines) -->
+  <g fill="#fafaf6" opacity="0.35">
+    <rect x="952" y="38" width="2" height="50"/>
+    <rect x="972" y="38" width="2" height="50"/>
+    <rect x="992" y="38" width="2" height="50"/>
+    <rect x="1012" y="38" width="2" height="50"/>
+    <rect x="1032" y="38" width="2" height="50"/>
+    <rect x="1052" y="38" width="2" height="50"/>
+  </g>
+
+  <!-- The Oregon Pioneer statue — gold accent -->
+  <g fill="#f5b942" opacity="0.55">
+    <rect x="996" y="2" width="8" height="14"/>
+    <circle cx="1000" cy="0" r="3.5"/>
+    <!-- Axe held aloft -->
+    <rect x="993" y="-4" width="2" height="12"/>
+  </g>
+
+  <!-- Resume foreground silhouette -->
+  <g fill="#1f5f3f" opacity="0.13">
+
+    <!-- Right of Capitol — Marion County Courthouse / library -->
+    <rect x="1260" y="200" width="55" height="80"/>
+    <rect x="1325" y="170" width="80" height="110"/>
+    <rect x="1415" y="195" width="50" height="85"/>
+
+    <!-- Church (St. Joseph's-style steeple) -->
+    <rect x="1490" y="180" width="55" height="100"/>
+    <path d="M1490 180 L1517.5 145 L1545 180 Z"/>
+    <rect x="1514" y="118" width="7" height="28"/>
+    <path d="M1514 118 L1517.5 100 L1521 118 Z"/>
+    <rect x="1516" y="92" width="3" height="9"/>
+
+    <!-- Downtown office buildings -->
+    <rect x="1565" y="195" width="55" height="85"/>
+    <rect x="1625" y="175" width="65" height="105"/>
+    <rect x="1700" y="200" width="50" height="80"/>
+
+    <!-- Eco-Earth Globe at Riverfront Park -->
+    <circle cx="1820" cy="242" r="22"/>
+    <rect x="1815" y="262" width="10" height="18"/>
+  </g>
+
+  <!-- Globe equator/meridian lines -->
+  <g stroke="#fafaf6" stroke-width="1.2" fill="none" opacity="0.45">
+    <line x1="1798" y1="242" x2="1842" y2="242"/>
+    <ellipse cx="1820" cy="242" rx="10" ry="22"/>
+  </g>
+
+  <!-- Right edge trees -->
+  <g fill="#1f5f3f" opacity="0.13">
+    <path d="M1860 280 L1860 252 Q1880 234 1900 252 Q1910 224 1920 246 L1920 280 Z"/>
+  </g>
+</svg>

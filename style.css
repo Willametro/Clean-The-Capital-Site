@@ -38,16 +38,35 @@
 
 /* ── Reset ──────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--paper); }
 body {
   margin: 0;
   font-family: var(--font-body);
   font-size: 17px;
   line-height: 1.65;
   color: var(--ink);
-  background: var(--paper);
+  background: transparent;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  position: relative;
+}
+
+/* ── Salem skyline backdrop ─────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: 280px;
+  background: url('skyline.svg') no-repeat center bottom;
+  background-size: auto 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+@media (max-width: 880px) {
+  body::before { height: 200px; background-size: auto 100%; }
+}
+@media (max-width: 540px) {
+  body::before { height: 160px; }
 }
 img, svg { max-width: 100%; display: block; }
 a { color: var(--forest); text-decoration: none; transition: color .15s; }
@@ -157,8 +176,7 @@ p  { margin: 0 0 1em; }
   padding: clamp(3rem, 8vw, 6rem) 0 clamp(3rem, 6vw, 5rem);
   background:
     radial-gradient(ellipse at top right, rgba(78,169,107,.15), transparent 60%),
-    radial-gradient(ellipse at bottom left, rgba(93,181,212,.10), transparent 55%),
-    var(--paper);
+    radial-gradient(ellipse at bottom left, rgba(93,181,212,.10), transparent 55%);
   overflow: hidden;
 }
 .hero-grid {
@@ -333,8 +351,7 @@ footer a:hover { color: var(--leaf); }
 .page-head {
   padding: clamp(3rem, 6vw, 4.5rem) 0 clamp(2rem, 4vw, 3rem);
   background:
-    radial-gradient(ellipse at top right, rgba(78,169,107,.18), transparent 65%),
-    var(--paper);
+    radial-gradient(ellipse at top right, rgba(78,169,107,.18), transparent 65%);
   border-bottom: 1px solid var(--border);
 }
 .page-head h1 { margin-bottom: .5rem; }
