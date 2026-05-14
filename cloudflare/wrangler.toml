@@ -1,0 +1,11 @@
+# Wrangler config for the Clean The Capital visitor logger Worker.
+# Used only if you deploy via the wrangler CLI. The dashboard UI works too —
+# see ../SETUP-CLOUDFLARE.md.
+
+name = "ctc-visitor-logger"
+main = "worker.js"
+compatibility_date = "2026-05-01"
+
+# DISCORD_WEBHOOK is a secret, not a plain var. Set it with:
+#   wrangler secret put DISCORD_WEBHOOK
+# (do not commit the webhook URL to git.)
