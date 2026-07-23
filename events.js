@@ -58,6 +58,91 @@ const EVENTS = [
     address: 'Englewood Park, 1260 19th St NE, Salem, OR 97301',
     lat: 44.9588, lng: -123.0223,
     notes: 'Neighborhood streets and park grounds. Quieter route — good first-timer event.'
+  },
+  /* ── Fall rotation ──────────────────────────────────────
+     Starting in August we're weighting new dates toward smaller
+     neighborhood parks rather than repeating the busiest downtown
+     spots every time — less competition for space with other park
+     visitors, easier parking, and it spreads cleanup coverage across
+     more of Salem. When adding future dates, pull from (or add to)
+     this same pool and keep cycling through it rather than settling
+     on just a couple of locations. */
+  {
+    id: 6,
+    date: '2026-08-08',
+    timeStart: '14:00',
+    timeEnd:   '17:00',
+    location: 'Grant School Park',
+    meet: 'Meet at the play structure near Cottage St NE',
+    address: 'Grant School Park, 1390 Cottage St NE, Salem, OR 97301',
+    lat: 44.9516, lng: -123.0268,
+    notes: 'Quiet residential streets around the Grant neighborhood park and school. Low-traffic route — a good one for first-timers and families.'
+  },
+  {
+    id: 7,
+    date: '2026-08-22',
+    timeStart: '14:00',
+    timeEnd:   '17:00',
+    location: 'Highland Park',
+    meet: 'Meet at the tennis and pickleball courts off Broadway St NE',
+    address: 'Highland Park, 2025 Broadway St NE, Salem, OR 97301',
+    lat: 44.9593, lng: -123.0292,
+    notes: 'Highland neighborhood streets and park grounds, a calmer route well away from downtown foot and car traffic.'
+  },
+  {
+    id: 8,
+    date: '2026-09-05',
+    timeStart: '14:00',
+    timeEnd:   '17:00',
+    location: 'Clark Creek Park',
+    meet: 'Meet at the picnic shelter near Ratcliff Dr SE',
+    address: 'Clark Creek Park, 745 Ratcliff Dr SE, Salem, OR 97302',
+    lat: 44.9106, lng: -123.0394,
+    notes: 'South Salem creekside paths and surrounding residential streets. Quiet, shaded, and family-friendly.'
+  },
+  {
+    id: 9,
+    date: '2026-09-19',
+    timeStart: '14:00',
+    timeEnd:   '17:00',
+    location: 'Orchard Heights Park',
+    meet: 'Meet at the pickleball courts off Orchard Heights Rd NW',
+    address: 'Orchard Heights Park, 1165 Orchard Heights Rd NW, Salem, OR 97304',
+    lat: 44.9584, lng: -123.0613,
+    notes: 'West Salem hillside park and nearby neighborhood streets. Fewer crowds than our downtown routes.'
+  },
+  {
+    id: 10,
+    date: '2026-10-03',
+    timeStart: '14:00',
+    timeEnd:   '17:00',
+    location: 'Pringle Park',
+    meet: 'Meet at the Pringle Community Hall parking lot on Church St SE',
+    address: 'Pringle Park, 606 Church St SE, Salem, OR 97301',
+    lat: 44.9339, lng: -123.0369,
+    notes: 'Pringle Creek banks and the surrounding park grounds. Shaded and low-traffic — a good pick for a cooler fall afternoon.'
+  },
+  {
+    id: 11,
+    date: '2026-10-17',
+    timeStart: '14:00',
+    timeEnd:   '17:00',
+    location: 'Northgate Park',
+    meet: 'Meet at the playground near Fairhaven Ave NE',
+    address: 'Northgate Park, 3575 Fairhaven Ave NE, Salem, OR 97301',
+    lat: 44.9725, lng: -122.9937,
+    notes: 'Northgate neighborhood streets and park grounds. Quiet residential route, well suited to first-timers.'
+  },
+  {
+    id: 12,
+    date: '2026-10-31',
+    timeStart: '14:00',
+    timeEnd:   '17:00',
+    location: 'Cascades Gateway Park',
+    meet: 'Meet at the main parking lot off Turner Rd SE',
+    address: 'Cascades Gateway Park, 2100 Turner Rd SE, Salem, OR 97302',
+    lat: 44.9120, lng: -122.9920,
+    notes: 'Open trails and fields on the edge of the city, away from downtown foot traffic. Bring a layer — it runs a bit more exposed than our park cleanups.'
   }
 ];
 
@@ -150,6 +235,18 @@ function renderEventList(target) {
   }).join('');
 }
 
+/* ── Volunteer form: keep the date dropdown in sync ─────── */
+function renderEventOptions(target) {
+  const el = document.querySelector(target);
+  if (!el) return;
+  EVENTS.filter(ev => statusFor(ev) !== 'past').forEach(ev => {
+    const d = parseLocalDate(ev.date, ev.timeStart);
+    const opt = document.createElement('option');
+    opt.textContent = `${fmtDate(d, { month: 'long', day: 'numeric' })} — ${ev.location}`;
+    el.appendChild(opt);
+  });
+}
+
 /* ── Map (Leaflet) ──────────────────────────────────────── */
 function renderMap(target) {
   const el = document.querySelector(target);
@@ -193,6 +290,9 @@ function injectEventSchema() {
   const upcoming = EVENTS.filter(ev => statusFor(ev) !== 'past');
   if (!upcoming.length) return;
   const data = upcoming.map(ev => ({
+    // NOTE: -07:00 is Pacific Daylight Time. Oregon falls back to PST
+    // (-08:00) on the first Sunday of November — update this offset for
+    // any event dated on or after that switchover.
     "@context": "https://schema.org",
     "@type": "Event",
     "name": `Clean The Capital — ${ev.location} Cleanup`,
@@ -232,6 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
   injectEventSchema();
   renderNextEventCard('[data-next-event]');
   renderEventList('[data-event-list]');
+  renderEventOptions('#event');
   renderMap('#map');
   // footer year
   const y = document.querySelector('[data-year]'); if (y) y.textContent = new Date().getFullYear();

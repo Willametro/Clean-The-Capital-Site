@@ -15,7 +15,16 @@ Updating that one array updates:
 - The "Next cleanup" card on the homepage and volunteer page
 - The map pins (next event is highlighted)
 - The events page list (auto-categorized into past / next / upcoming)
+- The volunteer signup form's date dropdown (auto-populated, upcoming events only)
 - The JSON-LD `Event` schema injected into the page head (SEO)
+
+**Rotation guidance:** don't just repeat the same handful of flagship parks
+(Riverfront, Capitol Mall) every cycle. Favor smaller neighborhood parks for
+new dates — less competition for space with other park users, easier
+parking, and it spreads visible cleanup impact across more of the city. Mix
+in a flagship location occasionally for visibility, but keep cycling through
+the wider pool. See the comment above `id: 6` in `events.js` for the current
+rotation pool.
 
 To add or modify a cleanup, edit `events.js`:
 ```js
