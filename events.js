@@ -13,7 +13,7 @@ const EVENTS = [
     meet: 'Meet at the Eco-Earth Globe',
     address: 'Riverfront Park, 200 Water St NE, Salem, OR 97301',
     lat: 44.9412, lng: -123.0440,
-    notes: 'Riverside walkways and downtown perimeter. Supplies and gloves provided — bring water and closed-toe shoes.'
+    notes: 'Riverside walkways and downtown perimeter. Bring water and closed-toe shoes.'
   },
   {
     id: 2,
@@ -143,6 +143,76 @@ const EVENTS = [
     address: 'Cascades Gateway Park, 2100 Turner Rd SE, Salem, OR 97302',
     lat: 44.9120, lng: -122.9920,
     notes: 'Open trails and fields on the edge of the city, away from downtown foot traffic. Bring a layer — it runs a bit more exposed than our park cleanups.'
+  },
+  /* ── Winter rotation ─────────────────────────────────────
+     Cycles back through a couple of flagship spots plus more
+     neighborhood parks. Lat/lng for the newer entries are approximate
+     map pins — nudge them if a marker looks off. */
+  {
+    id: 13,
+    date: '2026-11-14',
+    timeStart: '14:00',
+    timeEnd:   '17:00',
+    location: 'Fairmount Park',
+    meet: 'Meet at the park entrance on Luther St S',
+    address: 'Fairmount Park, 590 Luther St S, Salem, OR 97302',
+    lat: 44.9230, lng: -123.0480,
+    notes: 'South Salem neighborhood park and surrounding residential streets. Quiet route, a good one for first-timers and families.'
+  },
+  {
+    id: 14,
+    date: '2026-11-28',
+    timeStart: '14:00',
+    timeEnd:   '17:00',
+    location: 'Hoover Park',
+    meet: 'Meet at the playground off Savage Rd NE',
+    address: 'Hoover Park, 1250 Savage Rd NE, Salem, OR 97301',
+    lat: 44.9690, lng: -123.0075,
+    notes: 'Neighborhood park behind the elementary school and nearby streets. Low-traffic and easy parking off Ellis Ave.'
+  },
+  {
+    id: 15,
+    date: '2026-12-12',
+    timeStart: '14:00',
+    timeEnd:   '17:00',
+    location: 'Wallace Marine Park',
+    meet: 'Meet at the main parking area off Glen Creek Rd NW',
+    address: 'Wallace Marine Park, 200 Glen Creek Rd NW, Salem, OR 97304',
+    lat: 44.9560, lng: -123.0700,
+    notes: 'West Salem riverfront paths, sports fields, and park edges. Dress for wet ground — waterproof shoes help.'
+  },
+  {
+    id: 16,
+    date: '2026-12-26',
+    timeStart: '14:00',
+    timeEnd:   '17:00',
+    location: 'Riverfront Park',
+    meet: 'Meet at the Eco-Earth Globe',
+    address: 'Riverfront Park, 200 Water St NE, Salem, OR 97301',
+    lat: 44.9412, lng: -123.0440,
+    notes: 'Riverside walkways and downtown perimeter. A post-holiday reset for the busiest park in town — bring water and closed-toe shoes.'
+  },
+  {
+    id: 17,
+    date: '2027-01-09',
+    timeStart: '14:00',
+    timeEnd:   '17:00',
+    location: 'Marion Square Park',
+    meet: 'Meet at the gazebo near Front St NE',
+    address: 'Marion Square Park, Front St NE, Salem, OR 97301',
+    lat: 44.9472, lng: -123.0399,
+    notes: 'Bridge approaches and underpasses. Groups will split between street level and lower park paths.'
+  },
+  {
+    id: 18,
+    date: '2027-01-23',
+    timeStart: '14:00',
+    timeEnd:   '17:00',
+    location: 'Oregon State Capitol Mall',
+    meet: 'Meet at the Capitol east steps',
+    address: 'Oregon State Capitol, 900 Court St NE, Salem, OR 97301',
+    lat: 44.9382, lng: -123.0298,
+    notes: 'Capitol grounds, Willson Park, and the State St corridor. High-visibility cleanup near civic landmarks.'
   }
 ];
 
@@ -163,6 +233,11 @@ function fmtTimeRange(s, e) {
   };
   return `${f(s)} – ${f(e)}`;
 }
+/* Past events stay in EVENTS for the record but are never shown. */
+function upcomingEvents() {
+  const now = new Date();
+  return EVENTS.filter(ev => parseLocalDate(ev.date, ev.timeEnd) >= now);
+}
 function getNextEvent() {
   const now = new Date();
   return EVENTS.find(ev => parseLocalDate(ev.date, ev.timeEnd) >= now) || null;
@@ -176,6 +251,10 @@ function statusFor(ev) {
   return 'future';
 }
 
+function directionsUrl(ev) {
+  return 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(ev.address);
+}
+
 /* ── Hero: next-event card ──────────────────────────────── */
 function renderNextEventCard(target) {
   const el = document.querySelector(target);
@@ -186,7 +265,7 @@ function renderNextEventCard(target) {
       <div class="nec-tag"><span class="pulse"></span> Next cleanup</div>
       <div class="nec-body">
         <div class="nec-date">More dates coming</div>
-        <div class="nec-time">Check back soon — fall schedule in planning.</div>
+        <div class="nec-time">Check back soon — new dates are being scheduled.</div>
       </div>`;
     return;
   }
@@ -211,7 +290,12 @@ function renderNextEventCard(target) {
 function renderEventList(target) {
   const el = document.querySelector(target);
   if (!el) return;
-  el.innerHTML = EVENTS.map(ev => {
+  const list = upcomingEvents();
+  if (!list.length) {
+    el.innerHTML = '<p class="muted">New dates are being scheduled — check back soon, or <a href="get-involved.html">sign up</a> and we will email you.</p>';
+    return;
+  }
+  el.innerHTML = list.map(ev => {
     const d = parseLocalDate(ev.date, ev.timeStart);
     const status = statusFor(ev);
     const badge =
@@ -229,6 +313,7 @@ function renderEventList(target) {
           <h3>${ev.location}</h3>
           <p class="meta"><strong>${fmtTimeRange(ev.timeStart, ev.timeEnd)}</strong> · ${ev.meet}</p>
           <p class="meta muted" style="margin-top:.4rem;font-size:.9rem">${ev.notes}</p>
+          <p class="meta" style="margin-top:.4rem;font-size:.9rem"><a href="${directionsUrl(ev)}" target="_blank" rel="noopener">Directions<span class="sr-only"> to ${ev.location}</span> →</a></p>
         </div>
         ${badge}
       </article>`;
@@ -239,7 +324,7 @@ function renderEventList(target) {
 function renderEventOptions(target) {
   const el = document.querySelector(target);
   if (!el) return;
-  EVENTS.filter(ev => statusFor(ev) !== 'past').forEach(ev => {
+  upcomingEvents().forEach(ev => {
     const d = parseLocalDate(ev.date, ev.timeStart);
     const opt = document.createElement('option');
     opt.textContent = `${fmtDate(d, { month: 'long', day: 'numeric' })} — ${ev.location}`;
@@ -261,7 +346,7 @@ function renderMap(target) {
 
   const colors = { next: '#f5b942', future: '#4ea96b', past: '#b9beb6' };
   const bounds = [];
-  EVENTS.forEach(ev => {
+  upcomingEvents().forEach(ev => {
     const status = statusFor(ev);
     const color = colors[status];
     const isNext = status === 'next';
@@ -285,19 +370,28 @@ function renderMap(target) {
   if (bounds.length) map.fitBounds(bounds, { padding: [40, 40] });
 }
 
+/* UTC offset for Salem on a given date (-07:00 PDT / -08:00 PST). */
+function pacificOffset(date, time) {
+  try {
+    const probe = new Date(`${date}T${time}:00Z`);
+    const part = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', timeZoneName: 'shortOffset' })
+      .formatToParts(probe).find(p => p.type === 'timeZoneName').value;   // e.g. "GMT-8"
+    const m = part.match(/GMT([+-])(\d+)/);
+    if (m) return `${m[1]}${m[2].padStart(2, '0')}:00`;
+  } catch (e) { /* fall through */ }
+  return '-08:00';
+}
+
 /* ── JSON-LD Event schema injection ─────────────────────── */
 function injectEventSchema() {
-  const upcoming = EVENTS.filter(ev => statusFor(ev) !== 'past');
+  const upcoming = upcomingEvents();
   if (!upcoming.length) return;
   const data = upcoming.map(ev => ({
-    // NOTE: -07:00 is Pacific Daylight Time. Oregon falls back to PST
-    // (-08:00) on the first Sunday of November — update this offset for
-    // any event dated on or after that switchover.
     "@context": "https://schema.org",
     "@type": "Event",
     "name": `Clean The Capital — ${ev.location} Cleanup`,
-    "startDate": `${ev.date}T${ev.timeStart}:00-07:00`,
-    "endDate":   `${ev.date}T${ev.timeEnd}:00-07:00`,
+    "startDate": `${ev.date}T${ev.timeStart}:00${pacificOffset(ev.date, ev.timeStart)}`,
+    "endDate":   `${ev.date}T${ev.timeEnd}:00${pacificOffset(ev.date, ev.timeEnd)}`,
     "eventStatus": "https://schema.org/EventScheduled",
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
     "location": {
@@ -323,7 +417,14 @@ function injectEventSchema() {
 function initNav() {
   const btn = document.getElementById('nav-toggle');
   const menu = document.getElementById('mobile-menu');
-  if (btn && menu) btn.addEventListener('click', () => menu.classList.toggle('open'));
+  if (!btn || !menu) return;
+  const setOpen = open => {
+    menu.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+  };
+  btn.addEventListener('click', () => setOpen(!menu.classList.contains('open')));
+  menu.addEventListener('click', e => { if (e.target.closest('a')) setOpen(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
 }
 
 /* ── Boot ───────────────────────────────────────────────── */
