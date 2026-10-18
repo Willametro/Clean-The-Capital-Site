@@ -20,13 +20,14 @@ and the Worker only accepts posts from cleanthecapital.org.
 ## 1. Resend: create an account and verify the domain
 
 1. Sign up at **https://resend.com** with `jacob.powell@cleanthecapital.org`.
-2. Go to **Domains → Add Domain** and enter `cleanthecapital.org`. Region **us-east-1** is fine.
-3. Resend shows 3 or 4 DNS records: a DKIM `TXT` at `resend._domainkey`, an `MX` and a `TXT` at `send`, and an optional DMARC `TXT`.
-4. In **Porkbun → Domain Management → cleanthecapital.org → DNS**, add each record exactly as Resend shows it. In Porkbun's **Host** box, type only the part before `.cleanthecapital.org` (for example `send` or `resend._domainkey`).
-   - These records live on the `send` and `resend._domainkey` subdomains, so they **don't touch** the MX records for your Porkbun mailbox. Don't edit or delete those.
+2. Go to **Domains → Add Domain** and enter **`forms.cleanthecapital.org`**. Resend recommends sending from a subdomain, so if it ever has delivery trouble, your main `@cleanthecapital.org` inbox isn't affected. Region **us-east-1** is fine.
+   - You don't need to create the subdomain in Porkbun first. Adding the DNS records below is what creates it.
+3. Resend shows 3 or 4 DNS records: a DKIM `TXT` at `resend._domainkey.forms`, an `MX` and a `TXT` at `send.forms`, and an optional DMARC `TXT`.
+4. In **Porkbun → Domain Management → cleanthecapital.org → DNS**, add each record exactly as Resend shows it. In Porkbun's **Host** box, type only the part before `.cleanthecapital.org` (for example `send.forms` or `resend._domainkey.forms`).
+   - These records only affect the `forms` subdomain, so they **don't touch** the MX records for your Porkbun mailbox. Don't edit or delete those.
    - If you already have a DMARC record (`_dmarc`), keep it and skip Resend's.
 5. Back in Resend, click **Verify DNS Records**. It usually takes a few minutes, occasionally up to a few hours.
-6. Go to **API Keys → Create API Key**, name it `ctc-forms`, and give it **Sending access** to `cleanthecapital.org`. Copy the key now, because Resend only shows it once.
+6. Go to **API Keys → Create API Key**, name it `ctc-forms`, and give it **Sending access** to `forms.cleanthecapital.org`. Copy the key now, because Resend only shows it once.
 
 ## 2. Cloudflare: deploy the Worker
 
@@ -40,7 +41,7 @@ and the Worker only accepts posts from cleanthecapital.org.
    | Type | Name | Value |
    |---|---|---|
    | Text | `TO_EMAIL` | `jacob.powell@cleanthecapital.org` |
-   | Text | `FROM_EMAIL` | `Clean The Capital <forms@cleanthecapital.org>` |
+   | Text | `FROM_EMAIL` | `Clean The Capital <noreply@forms.cleanthecapital.org>` |
    | Text | `SITE_URL` | `https://cleanthecapital.org` |
    | Text | `ALLOWED_ORIGINS` | `https://cleanthecapital.org,https://www.cleanthecapital.org` |
    | Text | `SEND_AUTOREPLY` | `true` (or `false` to turn off auto-replies) |
@@ -84,7 +85,7 @@ After editing, paste the file into the dashboard editor again, or run `npx wrang
 
 ## Quick checklist
 
-- [ ] Resend account created, `cleanthecapital.org` added
+- [ ] Resend account created, `forms.cleanthecapital.org` added
 - [ ] Resend DNS records added in Porkbun and showing **Verified**
 - [ ] Resend API key created
 - [ ] `ctc-forms` Worker deployed with the variables and `RESEND_API_KEY` secret

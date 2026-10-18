@@ -7,7 +7,7 @@ compatibility_date = "2026-05-01"
 
 [vars]
 TO_EMAIL = "jacob.powell@cleanthecapital.org"
-FROM_EMAIL = "Clean The Capital <forms@cleanthecapital.org>"
+FROM_EMAIL = "Clean The Capital <noreply@forms.cleanthecapital.org>"
 SITE_URL = "https://cleanthecapital.org"
 ALLOWED_ORIGINS = "https://cleanthecapital.org,https://www.cleanthecapital.org"
 SEND_AUTOREPLY = "true"
