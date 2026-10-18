@@ -54,11 +54,11 @@ GitHub needs to know we want to publish, and it needs the custom domain saved so
 
 8. Save. Porkbun applies changes immediately, but recursive resolvers around the world may take **10 minutes to a few hours** to pick them up.
 
-### 1c. (Optional) Add email forwarding for jacob.powell@willametro.com aliases
+### 1c. Site email address
 
-Skip this if `willametro.com` already handles mail elsewhere. The site uses `jacob.powell@willametro.com` directly — you don't need any `@cleanthecapital.org` mailboxes unless you want them.
+The site uses `jacob.powell@cleanthecapital.org` everywhere (contact links, footer, donate, privacy, and as the Formspree recipient). Make sure that mailbox is set up with your email provider before relying on it.
 
-If you later want addresses like `hello@cleanthecapital.org` to forward to your willametro inbox, Porkbun → Domain Details → **Email Forwarding** tab → add `hello → jacob.powell@willametro.com`. No DNS changes needed — Porkbun handles it.
+If you later want extra addresses like `hello@cleanthecapital.org`, add them as aliases or forwards to `jacob.powell@cleanthecapital.org` in your email provider.
 
 ### 1d. Verify
 
@@ -96,12 +96,12 @@ Done. Site is live.
 
 ## 2. Formspree → working volunteer + contact forms
 
-Goal: when someone submits the volunteer or contact form, you get an email at `jacob.powell@willametro.com`. No backend code, no database — Formspree handles it.
+Goal: when someone submits the volunteer or contact form, you get an email at `jacob.powell@cleanthecapital.org`. No backend code, no database — Formspree handles it.
 
 ### 2a. Sign up
 
 1. Go to **https://formspree.io/register**
-2. Sign up with `jacob.powell@willametro.com` (this is where submissions will land by default)
+2. Sign up with `jacob.powell@cleanthecapital.org` (this is where submissions will land by default)
 3. Confirm the email from Formspree
 4. The free plan ("Free") allows **50 submissions/month** across all forms. That's plenty for now. Upgrade later if volume justifies it.
 
@@ -109,7 +109,7 @@ Goal: when someone submits the volunteer or contact form, you get an email at `j
 
 1. Dashboard → **+ New Form** (or **New Project** → then **+ New Form**)
 2. **Form name**: `CTC — Volunteer Signup`
-3. **Sending email to**: `jacob.powell@willametro.com` (should be prefilled)
+3. **Sending email to**: `jacob.powell@cleanthecapital.org` (should be prefilled)
 4. Click **Create Form**
 5. You'll land on a page showing a **form endpoint URL** like:
    ```
@@ -153,7 +153,7 @@ GitHub Pages will redeploy automatically within a minute.
 
 1. Open `https://cleanthecapital.org/get-involved.html` in a private window
 2. Fill out the form with your own email and submit
-3. **First submission triggers a Formspree confirmation email** to `jacob.powell@willametro.com` — open it, click **Confirm**. This is one-time per form.
+3. **First submission triggers a Formspree confirmation email** to `jacob.powell@cleanthecapital.org` — open it, click **Confirm**. This is one-time per form.
 4. Submit the form a second time. You should now receive the actual submission in your inbox.
 5. Repeat for the contact form.
 
@@ -161,7 +161,7 @@ GitHub Pages will redeploy automatically within a minute.
 
 In the Formspree dashboard, open each form and configure:
 
-- **Settings → Notifications** → confirm `jacob.powell@willametro.com` is the recipient. Add a second recipient (like a partner organizer) if/when you have one.
+- **Settings → Notifications** → confirm `jacob.powell@cleanthecapital.org` is the recipient. Add a second recipient (like a partner organizer) if/when you have one.
 - **Settings → Reply-To** → set to `email` (the form field). This way you can hit "Reply" in your inbox and reach the volunteer/sender directly.
 - **Settings → Spam filter** → enable. Formspree's default Akismet + honeypot is good enough for this volume.
 - **Settings → reCAPTCHA** → optional. Worth enabling once volume picks up. Free.
@@ -180,8 +180,8 @@ Skip this for v1 — Formspree's default page is fine.
 
 | Symptom | Fix |
 |---|---|
-| First submission never arrived | Check spam in jacob.powell@willametro.com. Click Formspree's confirmation link. |
-| Submissions go to spam | Add `noreply@formspree.io` to your safe senders. Set up SPF on willametro.com (you likely already have it). |
+| First submission never arrived | Check spam in jacob.powell@cleanthecapital.org. Click Formspree's confirmation link. |
+| Submissions go to spam | Add `noreply@formspree.io` to your safe senders. Make sure SPF is set up for cleanthecapital.org mail. |
 | 404 on submit | Double-check the form URL — `https://formspree.io/f/XXXXXXXX`, no trailing characters. |
 | "Form not found" | The form ID is wrong, or you swapped the volunteer and contact IDs between pages. |
 | Submission count climbing without real users | Spam. Enable reCAPTCHA in form Settings. |
@@ -198,7 +198,7 @@ Porkbun DNS:
 - [ ] HTTPS enforced after cert issued
 
 Formspree:
-- [ ] Account created with `jacob.powell@willametro.com`
+- [ ] Account created with `jacob.powell@cleanthecapital.org`
 - [ ] Volunteer form created, endpoint copied
 - [ ] Contact form created, endpoint copied
 - [ ] Both endpoints pasted into the HTML, committed, pushed
