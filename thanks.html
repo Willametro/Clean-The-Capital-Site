@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thanks | Clean The Capital</title>
+<meta name="description" content="Thanks for reaching out to Clean The Capital.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1f5f3f">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<link rel="stylesheet" href="/style.css">
+<script defer src="/tracker.js"></script>
+</head>
+<body>
+<header id="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/logo.svg" alt="Clean The Capital"></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/index.html">Home</a><a href="/events.html">Events</a><a href="/about.html">About</a>
+      <a href="/get-involved.html" class="nav-cta">Volunteer</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="page-head">
+    <div class="container text-center">
+      <span class="eyebrow" id="t-eyebrow">Sent</span>
+      <h1 id="t-title">Thanks! We got it.</h1>
+      <p class="lead" id="t-lead" style="margin:0 auto">We'll get back to you within a few days. Check your inbox for a confirmation email.</p>
+      <div class="btn-row" style="justify-content:center; margin-top:1.5rem">
+        <a class="btn btn-primary" href="/">Back to home</a>
+        <a class="btn btn-outline" href="/events.html">See upcoming cleanups</a>
+      </div>
+    </div>
+  </section>
+</main>
+<script>
+  (function () {
+    var q = new URLSearchParams(location.search);
+    function set(id, text) { document.getElementById(id).textContent = text; }
+    if (q.get('error')) {
+      set('t-eyebrow', 'Not sent');
+      set('t-title', 'Something went wrong.');
+      set('t-lead', 'Your form didn\u2019t go through. Please go back and try again, or email jacob.powell@cleanthecapital.org.');
+    } else if (q.get('form') === 'volunteer') {
+      set('t-title', 'You\u2019re signed up!');
+      set('t-lead', 'Thanks for volunteering. Check your inbox for a confirmation, and we\u2019ll email event-day details before the cleanup.');
+    }
+  })();
+</script>
+</body>
+</html>

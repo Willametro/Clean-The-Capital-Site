@@ -3,7 +3,7 @@
 Two things stand between this repo and a live, working site:
 
 1. **Porkbun DNS** → point `cleanthecapital.org` at GitHub Pages
-2. **Formspree** → wire up the volunteer + contact forms so submissions actually email you
+2. **Forms** → wire up the volunteer + contact forms so submissions actually email you
 
 Do them in that order. Each section below is a click-by-click walkthrough.
 
@@ -94,97 +94,9 @@ Done. Site is live.
 
 ---
 
-## 2. Formspree → working volunteer + contact forms
+## 2. Volunteer + contact forms
 
-Goal: when someone submits the volunteer or contact form, you get an email at `jacob.powell@cleanthecapital.org`. No backend code, no database — Formspree handles it.
-
-### 2a. Sign up
-
-1. Go to **https://formspree.io/register**
-2. Sign up with `jacob.powell@cleanthecapital.org` (this is where submissions will land by default)
-3. Confirm the email from Formspree
-4. The free plan ("Free") allows **50 submissions/month** across all forms. That's plenty for now. Upgrade later if volume justifies it.
-
-### 2b. Create the volunteer form
-
-1. Dashboard → **+ New Form** (or **New Project** → then **+ New Form**)
-2. **Form name**: `CTC — Volunteer Signup`
-3. **Sending email to**: `jacob.powell@cleanthecapital.org` (should be prefilled)
-4. Click **Create Form**
-5. You'll land on a page showing a **form endpoint URL** like:
-   ```
-   https://formspree.io/f/abcdwxyz
-   ```
-   The part after `/f/` is your form ID. Copy the **whole URL**.
-
-### 2c. Create the contact form
-
-Repeat 2b with:
-- **Form name**: `CTC — Contact`
-- Same destination email
-- Copy that endpoint URL too.
-
-You now have two distinct URLs — keep them straight.
-
-### 2d. Paste the URLs into the repo
-
-Edit two files in this repo:
-
-**`get-involved.html`** — find the line:
-```html
-<form action="https://formspree.io/f/your-form-id" method="POST">
-```
-Replace `your-form-id` with the **volunteer** form ID.
-
-**`contact.html`** — find the same `your-form-id` placeholder and replace with the **contact** form ID.
-
-Commit and push:
-
-```bash
-cd ~/Documents/Clean-The-Capital-Site
-git add get-involved.html contact.html
-git commit -m "Wire up live Formspree endpoints for volunteer and contact forms"
-git push
-```
-
-GitHub Pages will redeploy automatically within a minute.
-
-### 2e. Test each form
-
-1. Open `https://cleanthecapital.org/get-involved.html` in a private window
-2. Fill out the form with your own email and submit
-3. **First submission triggers a Formspree confirmation email** to `jacob.powell@cleanthecapital.org` — open it, click **Confirm**. This is one-time per form.
-4. Submit the form a second time. You should now receive the actual submission in your inbox.
-5. Repeat for the contact form.
-
-### 2f. Recommended Formspree settings (per form)
-
-In the Formspree dashboard, open each form and configure:
-
-- **Settings → Notifications** → confirm `jacob.powell@cleanthecapital.org` is the recipient. Add a second recipient (like a partner organizer) if/when you have one.
-- **Settings → Reply-To** → set to `email` (the form field). This way you can hit "Reply" in your inbox and reach the volunteer/sender directly.
-- **Settings → Spam filter** → enable. Formspree's default Akismet + honeypot is good enough for this volume.
-- **Settings → reCAPTCHA** → optional. Worth enabling once volume picks up. Free.
-- **Integrations** → if you ever want submissions to also land in Google Sheets, Slack, Notion, etc., this is where you wire that up. Not needed for v1.
-
-### 2g. After-action: confirmation page (nice-to-have, not required)
-
-By default Formspree shows its own "Thanks!" page after submission. If you want users redirected to your own thank-you page:
-
-1. Create a new file `thanks.html` in the repo (copy `404.html` and adapt the copy)
-2. In Formspree → form Settings → **After submission** → **Redirect to URL** → `https://cleanthecapital.org/thanks.html`
-
-Skip this for v1 — Formspree's default page is fine.
-
-### Troubleshooting
-
-| Symptom | Fix |
-|---|---|
-| First submission never arrived | Check spam in jacob.powell@cleanthecapital.org. Click Formspree's confirmation link. |
-| Submissions go to spam | Add `noreply@formspree.io` to your safe senders. Make sure SPF is set up for cleanthecapital.org mail. |
-| 404 on submit | Double-check the form URL — `https://formspree.io/f/XXXXXXXX`, no trailing characters. |
-| "Form not found" | The form ID is wrong, or you swapped the volunteer and contact IDs between pages. |
-| Submission count climbing without real users | Spam. Enable reCAPTCHA in form Settings. |
+The forms are handled by our own Cloudflare Worker, which emails each submission through Resend. Follow **[SETUP-FORMS.md](SETUP-FORMS.md)**.
 
 ---
 
@@ -197,10 +109,5 @@ Porkbun DNS:
 - [ ] GitHub Pages enabled, custom domain saved
 - [ ] HTTPS enforced after cert issued
 
-Formspree:
-- [ ] Account created with `jacob.powell@cleanthecapital.org`
-- [ ] Volunteer form created, endpoint copied
-- [ ] Contact form created, endpoint copied
-- [ ] Both endpoints pasted into the HTML, committed, pushed
-- [ ] First test submission confirmed for each form
-- [ ] Reply-To set to the email field on both forms
+Forms:
+- [ ] Followed the checklist at the end of SETUP-FORMS.md

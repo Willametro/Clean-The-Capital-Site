@@ -1,0 +1,17 @@
+# Wrangler config for the Clean The Capital form handler Worker.
+# Deploy from this folder with `wrangler deploy`. See ../../SETUP-FORMS.md.
+
+name = "ctc-forms"
+main = "worker.js"
+compatibility_date = "2026-05-01"
+
+[vars]
+TO_EMAIL = "jacob.powell@cleanthecapital.org"
+FROM_EMAIL = "Clean The Capital <forms@cleanthecapital.org>"
+SITE_URL = "https://cleanthecapital.org"
+ALLOWED_ORIGINS = "https://cleanthecapital.org,https://www.cleanthecapital.org"
+SEND_AUTOREPLY = "true"
+
+# Secrets (never commit these):
+#   wrangler secret put RESEND_API_KEY
+#   wrangler secret put DISCORD_WEBHOOK   (optional)
