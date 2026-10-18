@@ -5,7 +5,7 @@ Static GitHub Pages site for **Clean The Capital**, a community-led trash cleanu
 ## Stack
 - Plain HTML/CSS/JS, no build step
 - [Leaflet](https://leafletjs.com/) + OpenStreetMap tiles for the events map
-- [Formspree](https://formspree.io/) for volunteer/contact forms (form IDs TBD)
+- Volunteer/contact forms post to a Cloudflare Worker (`cloudflare/forms/`) that emails submissions via [Resend](https://resend.com/)
 - Hosted via GitHub Pages, custom domain via Porkbun → `CNAME`
 
 ## Recording past cleanups
@@ -75,4 +75,4 @@ npx serve .
 - `/404.html`
 
 ## Forms
-The `action` attribute on volunteer and contact forms currently points to `https://formspree.io/f/your-form-id` — replace with the real Formspree endpoint when set up.
+The volunteer and contact forms post to the `ctc-forms` Cloudflare Worker (`cloudflare/forms/worker.js`). Fields, email subjects and auto-replies are configured in the `FORMS` object at the top of that file. Setup steps are in [SETUP-FORMS.md](SETUP-FORMS.md).
