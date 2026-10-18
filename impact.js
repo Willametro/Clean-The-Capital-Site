@@ -17,7 +17,7 @@ const PAST_CLEANUPS = [
     volunteers: 3,               // per signed sign-in sheet
     bags: 4,
     weight: 'about 15–20 lbs (estimated)',
-    note: 'Larger piles flagged for Salem parks crews to remove.',
+    note: 'Large objects flagged for Salem parks crews to remove.',
     photo: 'images/cleanups/2026-10-17-northgate.jpg',
     photoAlt: 'Full bags of trash collected and set beside a bin after the Northgate Park cleanup'
   }
