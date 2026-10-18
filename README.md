@@ -8,6 +8,14 @@ Static GitHub Pages site for **Clean The Capital**, a community-led trash cleanu
 - [Formspree](https://formspree.io/) for volunteer/contact forms (form IDs TBD)
 - Hosted via GitHub Pages, custom domain via Porkbun → `CNAME`
 
+## Recording past cleanups
+
+Cleanups that already happened live in **`impact.js`** under `PAST_CLEANUPS`
+(date, park, volunteers, bags, photo). That one array drives the homepage
+"Our impact so far" section and the cleanup report table on
+`legal/transparency.html`. Put photos in `images/cleanups/` and leave unknown
+numbers as `null` (they render as "—").
+
 ## Editing the event schedule
 
 All events are defined in **`events.js`** under the `EVENTS` array.
