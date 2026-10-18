@@ -41,6 +41,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script defer src="events.js"></script>
+<script defer src="impact.js"></script>
 
 <script type="application/ld+json">
 {
@@ -178,7 +179,17 @@
   </div>
 </section>
 
-<section class="section section--alt">
+<section class="section section--alt" id="impact">
+  <div class="container">
+    <span class="eyebrow">Our impact so far</span>
+    <h2>Cleanups we've already held</h2>
+    <p class="muted" style="max-width:640px">Neighbors are already showing up with grabbers and bags. Here's what we've done together so far, counted from our signed sign-in sheets.</p>
+    <div class="impact-stats" data-impact-totals></div>
+    <div class="impact-grid" data-impact-cards></div>
+  </div>
+</section>
+
+<section class="section">
   <div class="container">
     <span class="eyebrow">Upcoming locations</span>
     <h2>Where we're walking next</h2>

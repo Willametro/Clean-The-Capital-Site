@@ -255,6 +255,31 @@ p  { margin: 0 0 1em; }
   .ec-date .d { font-size: 1.9rem; }
 }
 
+/* ── Impact: past cleanups ──────────────────────────────── */
+.impact-stats { display:flex; gap: 2rem; flex-wrap: wrap; margin: 2rem 0; }
+.impact-stat { border-left: 3px solid var(--leaf); padding-left: .85rem; }
+.impact-stat .n { font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: var(--forest); line-height: 1.1; }
+.impact-stat .l { font-size: .9rem; color: var(--muted); }
+.impact-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+.impact-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.impact-photo { display:block; width:100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.impact-photo--empty {
+  display:flex; align-items:center; justify-content:center;
+  background: var(--leaf-soft); color: var(--forest); font-size:.9rem; font-weight:600;
+  border-bottom: 2px dashed var(--border-strong);
+}
+.impact-body { padding: 1rem 1.2rem 1.2rem; }
+.impact-date { font-family: var(--font-display); font-weight:700; color: var(--forest); text-transform: uppercase; letter-spacing: .08em; font-size: .78rem; }
+.impact-body h3 { margin: .25rem 0 .35rem; font-size: 1.15rem; }
+.impact-body .meta { color: var(--ink-soft); font-size: .95rem; margin: 0; }
+.impact-body .meta strong { color: var(--forest); }
+.impact-body .impact-note { margin-top: .4rem; font-size: .9rem; color: var(--muted); }
+.impact-table { width:100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: .95rem; }
+.impact-table th, .impact-table td { text-align:left; padding: .6rem .75rem; border-bottom: 1px solid var(--border); }
+.impact-table thead th { color: var(--muted); font-weight: 600; font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; }
+.impact-table tfoot th, .impact-table tfoot td { font-weight: 700; border-bottom: none; }
+.impact-table .num { text-align: right; }
+
 /* ── Map ────────────────────────────────────────────────── */
 #map {
   height: 480px;
