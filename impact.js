@@ -8,37 +8,13 @@
    Leave a value as null until it's known — it shows as "—".
    photo: path relative to the site root (shown on the homepage), e.g. 'images/cleanups/2026-05-30.jpg'
    (null shows a "Photo coming soon" placeholder).
-   TODO: placeholder entries below — confirm dates/parks and fill in real numbers. */
+   Only add cleanups backed by a signed sign-in sheet. */
 const PAST_CLEANUPS = [
-  {
-    date: '2026-05-30',
-    location: 'Riverfront Park',
-    volunteers: null,
-    bags: null,
-    photo: null,
-    photoAlt: 'Volunteers cleaning up Riverfront Park'
-  },
-  {
-    date: '2026-06-13',
-    location: 'Marion Square Park',
-    volunteers: null,
-    bags: null,
-    photo: null,
-    photoAlt: 'Volunteers cleaning up Marion Square Park'
-  },
-  {
-    date: '2026-06-27',
-    location: "Bush's Pasture Park",
-    volunteers: null,
-    bags: null,
-    photo: null,
-    photoAlt: "Volunteers cleaning up Bush's Pasture Park"
-  },
   {
     date: '2026-10-17',
     location: 'Northgate Park',
-    volunteers: null,
-    bags: null,
+    volunteers: 3,               // per signed sign-in sheet
+    bags: 4,
     photo: 'images/cleanups/2026-10-17-northgate.jpg',
     photoAlt: 'Full bags of trash collected and set beside a bin after the Northgate Park cleanup'
   }
