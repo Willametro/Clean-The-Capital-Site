@@ -33,6 +33,14 @@ const PAST_CLEANUPS = [
     bags: null,
     photo: null,
     photoAlt: "Volunteers cleaning up Bush's Pasture Park"
+  },
+  {
+    date: '2026-10-17',
+    location: 'Northgate Park',
+    volunteers: null,
+    bags: null,
+    photo: 'images/cleanups/2026-10-17-northgate.jpg',
+    photoAlt: 'Full bags of trash collected and set beside a bin after the Northgate Park cleanup'
   }
 ];
 
