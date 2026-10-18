@@ -15,7 +15,7 @@ different name and a different webhook URL.
 
 - A Cloudflare account (free tier is fine — Workers free plan = 100,000 requests/day)
 - The Discord webhook URL for the **#clean-the-capital** channel:
-  `https://discord.com/api/webhooks/1504515884658589796/YO2zG7KnbonDA63M3oEJsvW0Ul1CEVCTAFm80rjaJ0E7CTz-Yp0aWxoUzTLKvfKQzvyj`
+  `https://discord.com/api/webhooks/<id>/<token>`
   *(Keep this URL secret. It goes into a Cloudflare encrypted secret — never into the Worker source code.)*
 - 10 minutes
 
@@ -47,7 +47,7 @@ spam your channel.
 2. Click **Add** → set:
    - **Variable type:** `Secret` *(critical — not "plain text")*
    - **Variable name:** `DISCORD_WEBHOOK`
-   - **Value:** the full webhook URL: `https://discord.com/api/webhooks/1504515884658589796/YO2zG7KnbonDA63M3oEJsvW0Ul1CEVCTAFm80rjaJ0E7CTz-Yp0aWxoUzTLKvfKQzvyj`
+   - **Value:** the full webhook URL: `https://discord.com/api/webhooks/<id>/<token>`
 3. **Save**
 4. Cloudflare will tell you the secret is bound. The next request will pick it up automatically (or click **Deploy** to be safe).
 
@@ -98,7 +98,7 @@ Same procedure, different values:
 |---|---|
 | Worker name | `andrade-visitor-logger` |
 | Worker URL  | `https://andrade-visitor-logger.<account>.workers.dev/` |
-| Webhook secret | `https://discord.com/api/webhooks/1504513037338546267/HRtODd6KrE343jfAMZWO3RyCKUVPlwNtlKyTRUMCvhtrSGda6Ah8rplWsLz1I1bHZbnq` |
+| Webhook secret | `https://discord.com/api/webhooks/<id>/<token>` |
 | Discord channel | `#andrade-construction` |
 | `tracker.js` endpoint | already wired to `andrade-visitor-logger.jacobhulk2002.workers.dev` in the Andrade repo |
 
