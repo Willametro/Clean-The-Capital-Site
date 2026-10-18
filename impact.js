@@ -6,6 +6,7 @@
 
 /* One entry per cleanup that actually happened, oldest first.
    Leave a value as null until it's known — it shows as "—".
+   weight, note: optional free text shown on the homepage card.
    photo: path relative to the site root (shown on the homepage), e.g. 'images/cleanups/2026-05-30.jpg'
    (null shows a "Photo coming soon" placeholder).
    Only add cleanups backed by a signed sign-in sheet. */
@@ -15,6 +16,8 @@ const PAST_CLEANUPS = [
     location: 'Northgate Park',
     volunteers: 3,               // per signed sign-in sheet
     bags: 4,
+    weight: 'about 15–20 lbs (estimated)',
+    note: 'Larger piles flagged for Salem parks crews to remove.',
     photo: 'images/cleanups/2026-10-17-northgate.jpg',
     photoAlt: 'Full bags of trash collected and set beside a bin after the Northgate Park cleanup'
   }
@@ -57,7 +60,8 @@ function renderImpactCards(target) {
       <div class="impact-body">
         <div class="impact-date">${impactDate(c.date)}</div>
         <h3>${c.location}</h3>
-        <p class="meta"><strong>${impactNum(c.volunteers)}</strong> volunteers · <strong>${impactNum(c.bags)}</strong> bags</p>
+        <p class="meta"><strong>${impactNum(c.volunteers)}</strong> volunteers · <strong>${impactNum(c.bags)}</strong> bags${c.weight ? ` · ${c.weight}` : ''}</p>
+        ${c.note ? `<p class="meta impact-note">${c.note}</p>` : ''}
       </div>
     </article>`).join('');
 }
