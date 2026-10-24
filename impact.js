@@ -7,8 +7,8 @@
 /* One entry per cleanup that actually happened, oldest first.
    Leave a value as null until it's known — it shows as "—".
    weight, note: optional free text shown on the homepage card.
-   photo: path relative to the site root (shown on the homepage), e.g. 'images/cleanups/2026-05-30.jpg'
-   (null shows a "Photo coming soon" placeholder).
+   photo: optional path relative to the site root, e.g. 'images/cleanups/2026-05-30.jpg'
+   (null shows a text-only card).
    Only add cleanups backed by a signed sign-in sheet. */
 const PAST_CLEANUPS = [
   {
@@ -56,7 +56,7 @@ function renderImpactCards(target) {
     <article class="impact-card">
       ${c.photo
         ? `<img class="impact-photo" src="${c.photo}" alt="${c.photoAlt || ''}" loading="lazy">`
-        : '<div class="impact-photo impact-photo--empty" aria-hidden="true">Photo coming soon</div>'}
+        : ''}
       <div class="impact-body">
         <div class="impact-date">${impactDate(c.date)}</div>
         <h3>${c.location}</h3>
