@@ -9,8 +9,19 @@
    weight, note: optional free text shown on the homepage card.
    photo: optional path relative to the site root, e.g. 'images/cleanups/2026-05-30.jpg'
    (null shows a text-only card).
-   Only add cleanups backed by a signed sign-in sheet. */
+   Fill in volunteers/bags from the signed sign-in sheets as they're tallied. */
 const PAST_CLEANUPS = [
+  /* Earlier cleanups from the EVENTS schedule — text-only, counts not yet logged. */
+  { date: '2026-05-30', location: 'Riverfront Park', volunteers: null, bags: null, photo: null },
+  { date: '2026-06-13', location: 'Marion Square Park', volunteers: null, bags: null, photo: null },
+  { date: '2026-06-27', location: "Bush's Pasture Park", volunteers: null, bags: null, photo: null },
+  { date: '2026-07-11', location: 'Oregon State Capitol Mall', volunteers: null, bags: null, photo: null },
+  { date: '2026-07-25', location: 'Englewood Park', volunteers: null, bags: null, photo: null },
+  { date: '2026-08-08', location: 'Grant School Park', volunteers: null, bags: null, photo: null },
+  { date: '2026-08-22', location: 'Highland Park', volunteers: null, bags: null, photo: null },
+  { date: '2026-09-05', location: 'Clark Creek Park', volunteers: null, bags: null, photo: null },
+  { date: '2026-09-19', location: 'Orchard Heights Park', volunteers: null, bags: null, photo: null },
+  { date: '2026-10-03', location: 'Pringle Park', volunteers: null, bags: null, photo: null },
   {
     date: '2026-10-17',
     location: 'Northgate Park',
@@ -40,8 +51,8 @@ function renderImpactTotals(target) {
   if (!el) return;
   const stats = [
     [PAST_CLEANUPS.length, PAST_CLEANUPS.length === 1 ? 'Cleanup held' : 'Cleanups held'],
-    [impactSum('volunteers'), 'Volunteer spots filled'],
-    [impactSum('bags'), 'Bags of trash collected']
+    [impactSum('volunteers'), 'Volunteer spots logged'],
+    [impactSum('bags'), 'Bags of trash logged']
   ];
   el.innerHTML = stats.map(([n, l]) =>
     `<div class="impact-stat"><div class="n">${impactNum(n)}</div><div class="l">${l}</div></div>`
@@ -60,7 +71,9 @@ function renderImpactCards(target) {
       <div class="impact-body">
         <div class="impact-date">${impactDate(c.date)}</div>
         <h3>${c.location}</h3>
-        <p class="meta"><strong>${impactNum(c.volunteers)}</strong> volunteers · <strong>${impactNum(c.bags)}</strong> bags${c.weight ? ` · ${c.weight}` : ''}</p>
+        ${c.volunteers != null || c.bags != null
+          ? `<p class="meta"><strong>${impactNum(c.volunteers)}</strong> volunteers · <strong>${impactNum(c.bags)}</strong> bags${c.weight ? ` · ${c.weight}` : ''}</p>`
+          : ''}
         ${c.note ? `<p class="meta impact-note">${c.note}</p>` : ''}
       </div>
     </article>`).join('');
