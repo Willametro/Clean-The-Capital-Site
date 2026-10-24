@@ -260,7 +260,7 @@ p  { margin: 0 0 1em; }
 .impact-stat { border-left: 3px solid var(--leaf); padding-left: .85rem; }
 .impact-stat .n { font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: var(--forest); line-height: 1.1; }
 .impact-stat .l { font-size: .9rem; color: var(--muted); }
-.impact-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+.impact-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; align-items: start; }
 .impact-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
 .impact-photo { display:block; width:100%; aspect-ratio: 4 / 3; object-fit: cover; }
 .impact-photo--empty {
