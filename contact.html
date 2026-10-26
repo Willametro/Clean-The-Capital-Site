@@ -69,6 +69,7 @@
 }
 </script>
 <script defer src="/tracker.js"></script>
+<script async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to content</a>
@@ -139,6 +140,7 @@
             <label for="cmsg">Message</label>
             <textarea id="cmsg" name="message" required></textarea>
           </div>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAFnLTI49DrW1mxXS" style="margin-bottom:1rem"></div>
           <button type="submit" class="btn btn-primary btn--lg" style="width:100%">Send message</button>
         </form>
       </div>

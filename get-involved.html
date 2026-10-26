@@ -68,6 +68,7 @@
 }
 </script>
 <script defer src="/tracker.js"></script>
+<script async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to content</a>
@@ -140,6 +141,7 @@
             <label for="notes">Anything we should know? (optional)</label>
             <textarea id="notes" name="notes" placeholder="Accessibility needs, kids attending, questions, etc."></textarea>
           </div>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAFnLTI49DrW1mxXS" style="margin-bottom:1rem"></div>
           <button type="submit" class="btn btn-primary btn--lg" style="width:100%">Sign me up</button>
           <p class="muted" style="margin:.75rem 0 0; font-size:.82rem">By submitting, you agree we can email you about upcoming cleanups. We don't share your info.</p>
         </form>

@@ -57,7 +57,7 @@ Turnstile, the free "verify you are human" check (see step 2b).
 ### 2b. Turn on Turnstile (free "verify you are human" check)
 
 1. In Cloudflare, open **Turnstile → Add widget**. Name it `ctc-forms`, add the hostname `cleanthecapital.org`, and leave the mode on **Managed**.
-2. Copy the **Site Key** into the `data-sitekey` of the `cf-turnstile` box on `contact.html` and `get-involved.html`.
+2. The **Site Key** goes in the `data-sitekey` of the `cf-turnstile` box on `contact.html` and `get-involved.html` (already set to `0x4AAAAAAFnLTI49DrW1mxXS`).
 3. Copy the **Secret Key** into the Worker as a **Secret** named `TURNSTILE_SECRET`, then click **Deploy**.
 
 Without `TURNSTILE_SECRET` the Worker skips this check, so forms keep working while you set it up.
