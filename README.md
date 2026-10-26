@@ -11,8 +11,8 @@ Static GitHub Pages site for **Clean The Capital**, a community-led trash cleanu
 ## Recording past cleanups
 
 Cleanups that already happened live in **`impact.js`** under `PAST_CLEANUPS`
-(date, park, volunteers, bags, photo). That one array drives the homepage
-"Our impact so far" section and the cleanup report table on
+(date, park, volunteers, bags, photo). That one array drives the Events page
+"Our impact so far" section (bottom of `events.html`) and the cleanup report table on
 `legal/transparency.html`. Put photos in `images/cleanups/` and leave unknown
 numbers as `null` (they render as "—").
 
