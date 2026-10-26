@@ -4,7 +4,8 @@
    optional auto-reply before being redirected to /thanks.html.
 
    Deploy:  see ../../SETUP-FORMS.md
-   Secrets: RESEND_API_KEY (required), DISCORD_WEBHOOK (optional)
+   Secrets: RESEND_API_KEY (required), DISCORD_WEBHOOK (optional),
+            TURNSTILE_SECRET (optional; turns on the Cloudflare Turnstile check)
    Vars:    TO_EMAIL, FROM_EMAIL, SITE_URL, ALLOWED_ORIGINS, SEND_AUTOREPLY
             (set in wrangler.toml or the dashboard) */
 
@@ -43,8 +44,20 @@ const FORMS = {
   }
 };
 
-const HONEYPOT = '_gotcha';
+/* ── Spam protection ─────────────────────────────────────────
+   Bots that trip any of these get a fake "success" so they don't retry. */
+// Hidden fields real visitors never see. `_gotcha` is Formspree's well-known
+// name, so a second, more tempting one catches bots that skip it.
+const HONEYPOTS = ['_gotcha', 'website'];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Short "what's your price?" messages are a known bot template sent in many
+// languages ("Hola, quería saber tu precio", "Hallo, ich wollte Ihren Preis wissen").
+const PRICE_SPAM_RE = /(?<!\p{L})(price|precio|preço|prezzo|preis|prix|pris|prijs|cena|ціну|цену|árát)(?!\p{L})/iu;
+const MAX_LINKS = 2;
+// Per-IP limit. Kept in memory, so it is per Worker instance and resets when
+// the instance restarts; good enough to blunt a flood from one machine.
+const RATE_LIMIT = { max: 5, windowMs: 10 * 60 * 1000 };
+const hits = new Map();
 
 export default {
   async fetch(request, env, ctx) {
@@ -74,6 +87,8 @@ export default {
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors });
     if (request.method !== 'POST') return new Response('Method Not Allowed', { status: 405, headers: cors });
     if (!originOk) return new Response('Forbidden', { status: 403, headers: cors });
+    // Browsers always send Origin on a form POST; scripts often don't.
+    if (!origin && allowed.length) return new Response('Forbidden', { status: 403, headers: cors });
 
     const formKey = url.pathname.replace(/^\/+|\/+$/g, '');
     const form = FORMS[formKey];
@@ -88,8 +103,16 @@ export default {
       return done(400, formKey, 'Could not read the form');
     }
 
-    // Bots fill the hidden honeypot field; pretend success and drop it.
-    if (raw[HONEYPOT]) return done(200, formKey);
+    // Bots fill the hidden honeypot fields; pretend success and drop it.
+    if (HONEYPOTS.some(k => raw[k])) return done(200, formKey);
+
+    const ip = request.headers.get('CF-Connecting-IP') || '';
+    if (ip && rateLimited(ip)) return done(429, formKey, 'Too many messages, please try again later');
+
+    if (env.TURNSTILE_SECRET) {
+      const ok = await verifyTurnstile(env.TURNSTILE_SECRET, raw['cf-turnstile-response'], ip);
+      if (!ok) return done(403, formKey, 'Please complete the "verify you are human" check');
+    }
 
     const data = {};
     for (const [key, def] of Object.entries(form.fields)) {
@@ -98,6 +121,8 @@ export default {
       if (value && def.type === 'email' && !EMAIL_RE.test(value)) return done(400, formKey, 'Email address looks invalid');
       data[key] = value;
     }
+
+    if (looksLikeSpam(data)) return done(200, formKey);
 
     if (!env.RESEND_API_KEY || !env.TO_EMAIL || !env.FROM_EMAIL) {
       return done(500, formKey, 'Form handler is not configured');
@@ -145,6 +170,40 @@ export default {
     return done(200, formKey);
   }
 };
+
+function rateLimited(ip) {
+  const now = Date.now();
+  const recent = (hits.get(ip) || []).filter(t => now - t < RATE_LIMIT.windowMs);
+  recent.push(now);
+  hits.set(ip, recent);
+  if (hits.size > 5000) hits.clear();
+  return recent.length > RATE_LIMIT.max;
+}
+
+async function verifyTurnstile(secret, token, ip) {
+  if (!token) return false;
+  try {
+    const body = new FormData();
+    body.append('secret', secret);
+    body.append('response', token);
+    if (ip) body.append('remoteip', ip);
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body });
+    const out = await res.json();
+    if (!out.success) console.log('Turnstile failed', JSON.stringify(out['error-codes']));
+    return out.success === true;
+  } catch (err) {
+    console.log('Turnstile fetch failed', err);
+    return false;
+  }
+}
+
+function looksLikeSpam(data) {
+  const text = Object.values(data).join(' ');
+  if ((text.match(/https?:\/\/|www\./gi) || []).length > MAX_LINKS) return true;
+  const msg = data.message || data.notes || '';
+  if (msg.length < 80 && PRICE_SPAM_RE.test(msg)) return true;
+  return false;
+}
 
 async function sendEmail(env, payload) {
   try {

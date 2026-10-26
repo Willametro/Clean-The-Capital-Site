@@ -12,8 +12,12 @@ Cost: $0. The Cloudflare Workers free plan allows 100,000 requests a day, and
 the Resend free plan allows 3,000 emails a month. Each submission uses two
 emails: one to you and one auto-reply.
 
-Spam protection: there's a hidden honeypot field, a per-field length limit,
-and the Worker only accepts posts from cleanthecapital.org.
+Spam protection: hidden honeypot fields, a per-field length limit, a per-IP
+rate limit (5 messages per 10 minutes), a filter for known bot templates and
+link-stuffed messages, and the Worker only accepts browser posts from
+cleanthecapital.org. Bots that trip these get a fake "success" page and no
+email is sent. Setting the `TURNSTILE_SECRET` secret also turns on Cloudflare
+Turnstile, the free "verify you are human" check (see step 2b).
 
 ---
 
@@ -49,6 +53,14 @@ and the Worker only accepts posts from cleanthecapital.org.
    | Secret | `DISCORD_WEBHOOK` | optional; a Discord webhook URL to get pinged |
 
 5. Click **Deploy** again so the variables take effect.
+
+### 2b. Turn on Turnstile (free "verify you are human" check)
+
+1. In Cloudflare, open **Turnstile → Add widget**. Name it `ctc-forms`, add the hostname `cleanthecapital.org`, and leave the mode on **Managed**.
+2. Copy the **Site Key** into the `data-sitekey` of the `cf-turnstile` box on `contact.html` and `get-involved.html`.
+3. Copy the **Secret Key** into the Worker as a **Secret** named `TURNSTILE_SECRET`, then click **Deploy**.
+
+Without `TURNSTILE_SECRET` the Worker skips this check, so forms keep working while you set it up.
 
 ### CLI method
 
