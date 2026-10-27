@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volunteer Sign-In Sheet | Clean the Capital</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap">
+<script defer src="../events.js"></script>
+<!--
+  ═══════════════════════════════════════════════════════════
+  CLEAN THE CAPITAL — printable volunteer sign-in sheet
+  One template for every cleanup so the paperwork always matches.
+
+  How to use:
+    forms/signup-sheet.html             → pick an event from the list
+    forms/signup-sheet.html?event=11    → sheet for event id 11 (ids live in events.js)
+    forms/signup-sheet.html?event=blank → blank date/location lines
+
+  Event details come from EVENTS in events.js, so new dates show up here
+  automatically. Edit the wording below once and every sheet updates.
+  Never publish filled-in sheets: they contain volunteer names.
+  ═══════════════════════════════════════════════════════════
+-->
+<style>
+  :root {
+    --forest: #1f5f3f;
+    --leaf-soft: #e6f3ec;
+    --ink: #1a2421;
+    --muted: #5b6660;
+    --line: #9aa39d;
+    --font-display: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #e9ece8; color: var(--ink); font-family: var(--font-body); }
+  body { padding: 24px 16px 48px; }
+
+  /* ── Screen-only toolbar ───────────────────────────────── */
+  .toolbar { max-width: 8.5in; margin: 0 auto 20px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 15px; }
+  .toolbar select, .toolbar button { font: inherit; padding: 8px 12px; border-radius: 8px; border: 1px solid #c8cec5; background: #fff; }
+  .toolbar button { background: var(--forest); color: #fff; border-color: var(--forest); font-weight: 600; cursor: pointer; }
+  .toolbar .hint { color: var(--muted); font-size: 13px; flex-basis: 100%; }
+
+  /* ── Sheet (one printed page each) ─────────────────────── */
+  .sheet { background: #fff; margin: 0 auto 24px; box-shadow: 0 6px 16px rgba(20,40,30,.12); padding: 0.45in 0.5in; }
+  .portrait  { width: 8.5in; min-height: 11in; }
+  .landscape { width: 11in;  min-height: 8.5in; }
+
+  .head { display: flex; align-items: center; gap: 12px; border-bottom: 3px solid var(--forest); padding-bottom: 8px; margin-bottom: 10px; }
+  .head img { width: 46px; height: 46px; }
+  .head h1 { font-family: var(--font-display); font-size: 22px; line-height: 1.1; margin: 0; color: var(--forest); }
+  .head .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .head .page-tag { margin-left: auto; font-size: 11px; font-weight: 600; color: var(--muted); text-align: right; }
+
+  .event { display: grid; grid-template-columns: 1.1fr 1.6fr 1fr; gap: 6px 16px; background: var(--leaf-soft); border-radius: 6px; padding: 8px 12px; font-size: 12px; margin-bottom: 12px; }
+  .event .lbl { display: block; font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+  .event .val { font-weight: 600; min-height: 16px; border-bottom: 1px solid transparent; }
+  .event .val.blank { border-bottom-color: var(--line); }
+
+  h2 { font-family: var(--font-display); font-size: 15px; margin: 14px 0 4px; color: var(--forest); }
+  p, li { font-size: 12.5px; line-height: 1.45; margin: 0 0 6px; }
+  ol, ul { margin: 0 0 4px; padding-left: 18px; }
+  .callout { border: 1.5px solid var(--forest); border-radius: 6px; padding: 7px 10px; margin: 10px 0; }
+  .callout p { margin: 0; }
+  .fine { font-size: 9.5px; color: var(--muted); margin-top: 10px; }
+
+  /* Sign-in table */
+  table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  th { font-size: 9.5px; text-transform: uppercase; letter-spacing: .04em; text-align: left; color: #fff; background: var(--forest); padding: 5px 5px; vertical-align: bottom; line-height: 1.2; }
+  th small { display: block; text-transform: none; letter-spacing: 0; font-weight: 400; opacity: .85; }
+  td { border: 1px solid var(--line); height: 0.42in; padding: 2px 5px; font-size: 10.5px; vertical-align: middle; }
+  td.num { text-align: center; color: var(--muted); font-size: 10px; }
+  td.chk { text-align: center; white-space: nowrap; font-size: 10px; }
+  .box { display: inline-block; width: 11px; height: 11px; border: 1.3px solid var(--ink); border-radius: 2px; vertical-align: -1px; margin-right: 2px; }
+
+  .minor td { height: 0.42in; }
+  .portrait p.fine, .landscape p.fine { font-size: 9.5px; }
+  .report { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px 14px; font-size: 11px; margin-top: 6px; }
+  .report .field { border-bottom: 1px solid var(--line); padding: 14px 0 2px; }
+  .report .field span { font-size: 9.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; }
+  .report .wide { grid-column: span 4; }
+  .report .half { grid-column: span 2; }
+
+  @page portrait  { size: letter portrait;  margin: 0; }
+  @page landscape { size: letter landscape; margin: 0; }
+  .portrait  { page: portrait; }
+  .landscape { page: landscape; }
+
+  @media print {
+    html, body { background: #fff; padding: 0; }
+    .toolbar { display: none; }
+    .sheet { box-shadow: none; margin: 0; break-after: page; }
+    .sheet:last-child { break-after: auto; }
+    .portrait  { height: 11in;  overflow: hidden; }
+    .landscape { height: 8.5in; overflow: hidden; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <label for="pick">Event:</label>
+  <select id="pick"></select>
+  <button type="button" onclick="window.print()">Print</button>
+  <span class="hint">Print 1 copy of page 1 per event, then as many sign-in pages as you need (12 people per page). Page 3 is for minors and the leader's wrap-up.</span>
+</div>
+
+<!-- ── Page 1: agreement (read and keep on the clipboard) ───────────── -->
+<section class="sheet portrait">
+  <div class="head">
+    <img src="../favicon.svg" alt="">
+    <div>
+      <h1>Volunteer Agreement &amp; Sign-In</h1>
+      <div class="sub">Clean the Capital · Salem, Oregon · cleanthecapital.org · jacob.powell@cleanthecapital.org</div>
+    </div>
+    <div class="page-tag">Page 1 of 3<br>Read before signing</div>
+  </div>
+
+  <div class="event" data-event-box></div>
+
+  <p>Thank you for helping clean up Salem! Please read this page. When you sign the sign-in sheet (page 2), you are agreeing to it. A parent or guardian signs for anyone under 18 (page 3).</p>
+
+  <h2>1. Know the risks</h2>
+  <p>Picking up litter outdoors can involve cuts from glass or metal, needles, slips and falls, traffic, bugs, poison oak, bad weather, dirty or hazardous trash, and getting tired or sore. I choose to take part and accept these risks.</p>
+
+  <h2>2. Stay safe</h2>
+  <ul>
+    <li>Listen to the safety talk and follow the event leader.</li>
+    <li>Wear closed-toe shoes. Use the grabbers, bags, and gloves provided.</li>
+    <li><strong>Never touch needles, syringes, or anything hazardous.</strong> Mark the spot and tell a leader.</li>
+    <li>Stay off roads, out of the water, and with your group.</li>
+    <li>Stop and tell a leader right away if you get hurt or feel unwell.</li>
+  </ul>
+
+  <div class="callout">
+    <p><strong>We are not responsible.</strong> I take part at my own risk. To the fullest extent the law allows, I agree that Clean the Capital and its board, leaders, and volunteers are not responsible for any injury, illness, or lost or damaged property that happens while I volunteer, and I will not hold them liable, except for harm caused by their gross negligence or intentional misconduct.</p>
+  </div>
+
+  <h2>3. First aid</h2>
+  <p>If I am hurt and can't speak for myself, leaders may call 911 and give basic first aid. I am responsible for my own medical costs.</p>
+
+  <h2>4. Photos</h2>
+  <p>Clean the Capital may take photos at cleanups and use them on its website, social media, and grant reports, without payment. <strong>Don't want to be in photos? Check the "No photos" box next to your name.</strong></p>
+
+  <h2>5. Minors</h2>
+  <p>Volunteers under 18 must have a parent or guardian sign for them on page 3, and an adult must stay with them for the whole event.</p>
+
+  <h2>6. Volunteer, not employee</h2>
+  <p>I am an unpaid volunteer. Clean the Capital may keep my sign-in info for its records and grant reports. <strong>We never share or publish volunteer names or contact info.</strong></p>
+
+  <p class="fine">Clean the Capital is a volunteer group in Salem, Oregon. Questions: jacob.powell@cleanthecapital.org. Leaders: keep every signed sheet with this event's records (they are proof of volunteer hours for grants and the IRS). Do not post or photograph filled-in sheets.</p>
+</section>
+
+<!-- ── Page 2: sign-in (print as many as needed) ───────────────────── -->
+<section class="sheet landscape">
+  <div class="head">
+    <img src="../favicon.svg" alt="">
+    <div>
+      <h1>Volunteer Sign-In</h1>
+      <div class="sub">By signing, I agree to the Volunteer Agreement (page 1). Under 18? A parent or guardian signs on page 3.</div>
+    </div>
+    <div class="page-tag">Page 2 of 3<br>Sheet # ______</div>
+  </div>
+
+  <div class="event" data-event-box></div>
+
+  <table>
+    <colgroup>
+      <col style="width:3%"><col style="width:19%"><col style="width:19%"><col style="width:8%">
+      <col style="width:7%"><col style="width:7%"><col style="width:7%"><col style="width:7%"><col style="width:23%">
+    </colgroup>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Printed name</th>
+        <th>Phone or email<small>for event updates only</small></th>
+        <th>18 or older?</th>
+        <th>Time in</th>
+        <th>Time out</th>
+        <th>No photos</th>
+        <th>Email me future events</th>
+        <th>Signature</th>
+      </tr>
+    </thead>
+    <tbody data-signin-rows></tbody>
+  </table>
+</section>
+
+<!-- ── Page 3: minors + leader wrap-up ──────────────────────────────── -->
+<section class="sheet portrait">
+  <div class="head">
+    <img src="../favicon.svg" alt="">
+    <div>
+      <h1>Minors &amp; Event Wrap-Up</h1>
+      <div class="sub">Clean the Capital · Volunteer Agreement &amp; Sign-In</div>
+    </div>
+    <div class="page-tag">Page 3 of 3</div>
+  </div>
+
+  <div class="event" data-event-box></div>
+
+  <h2>Volunteers under 18</h2>
+  <p>I am this minor's parent or legal guardian. I have read the Volunteer Agreement (page 1) and agree to it for them. I or another adult I trust will stay with them the whole time.</p>
+  <table class="minor">
+    <colgroup><col style="width:24%"><col style="width:7%"><col style="width:23%"><col style="width:16%"><col style="width:7%"><col style="width:23%"></colgroup>
+    <thead>
+      <tr><th>Minor's name</th><th>Age</th><th>Parent / guardian name</th><th>Guardian phone</th><th>No photos</th><th>Guardian signature</th></tr>
+    </thead>
+    <tbody data-minor-rows></tbody>
+  </table>
+
+  <h2 style="margin-top:18px">Leader's wrap-up <span style="font-weight:400;font-size:11px;color:var(--muted)">(fill in at the end; this goes in grant reports)</span></h2>
+  <div class="report">
+    <div class="field"><span>Total volunteers</span></div>
+    <div class="field"><span>Total volunteer hours</span></div>
+    <div class="field"><span>Bags collected</span></div>
+    <div class="field"><span>Est. weight (lbs)</span></div>
+    <div class="field half"><span>Recycling bags (if any)</span></div>
+    <div class="field half"><span>Large items left for city crews</span></div>
+    <div class="field wide"><span>Needles / hazards found and reported to (who, when)</span></div>
+    <div class="field wide"><span>Injuries or incidents (what happened, what was done)</span></div>
+    <div class="field wide"><span>Notes (areas covered, partners present, photos taken)</span></div>
+    <div class="field half"><span>Leader name</span></div>
+    <div class="field half"><span>Leader signature</span></div>
+  </div>
+
+  <p class="fine">Total volunteer hours = add up (time out − time in) for everyone on page 2 plus minors. Keep page 1–3 together in the event folder. Never post filled-in sheets online.</p>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const SIGNIN_ROWS = 12;
+    const MINOR_ROWS = 6;
+    const box = '<span class="box"></span>';
+
+    document.querySelector('[data-signin-rows]').innerHTML = Array.from({ length: SIGNIN_ROWS }, (_, i) => `
+      <tr><td class="num">${i + 1}</td><td></td><td></td>
+        <td class="chk">${box}Y ${box}N</td><td></td><td></td>
+        <td class="chk">${box}</td><td class="chk">${box}</td><td></td></tr>`).join('');
+    document.querySelector('[data-minor-rows]').innerHTML = Array.from({ length: MINOR_ROWS }, () => `
+      <tr><td></td><td></td><td></td><td></td><td class="chk">${box}</td><td></td></tr>`).join('');
+
+    const param = new URLSearchParams(location.search).get('event');
+    const ev = (param && param !== 'blank') ? EVENTS.find(e => String(e.id) === param) : null;
+
+    const fill = (label, value) => `<div><span class="lbl">${label}</span><div class="val${value ? '' : ' blank'}">${value || ''}</div></div>`;
+    let html;
+    if (ev) {
+      const d = parseLocalDate(ev.date, ev.timeStart);
+      html = fill('Date', fmtDate(d, { weekday: 'short', month: 'long', day: 'numeric', year: 'numeric' })) +
+             fill('Location', `${ev.location} <span style="font-weight:400">· ${ev.meet}</span>`) +
+             fill('Time', fmtTimeRange(ev.timeStart, ev.timeEnd));
+    } else {
+      html = fill('Date', '') + fill('Location', '') + fill('Time', '');
+    }
+    document.querySelectorAll('[data-event-box]').forEach(el => { el.innerHTML = html; });
+    if (ev) document.title = `Sign-In ${ev.date} ${ev.location} | Clean the Capital`;
+
+    // Picker: upcoming events first, plus a blank option
+    const pick = document.getElementById('pick');
+    const opts = [['blank', 'Blank (write in date and place)']].concat(
+      upcomingEvents().map(e => [String(e.id), `${fmtDate(parseLocalDate(e.date, e.timeStart), { month: 'short', day: 'numeric', year: 'numeric' })} · ${e.location}`]));
+    if (ev && !opts.some(o => o[0] === String(ev.id))) opts.push([String(ev.id), `${ev.date} · ${ev.location}`]);
+    pick.innerHTML = opts.map(([v, t]) => `<option value="${v}">${t}</option>`).join('');
+    pick.value = ev ? String(ev.id) : 'blank';
+    pick.addEventListener('change', () => { location.search = '?event=' + pick.value; });
+  });
+</script>
+</body>
+</html>

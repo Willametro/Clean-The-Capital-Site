@@ -49,6 +49,16 @@ To add or modify a cleanup, edit `events.js`:
 }
 ```
 
+## Printable volunteer sign-in sheets
+
+Every cleanup uses the same 3-page sheet: `forms/signup-sheet.html`.
+
+1. Open `cleanthecapital.org/forms/signup-sheet.html` and pick the event (dates come from `events.js`), or use **Blank**.
+2. Click **Print**. Page 1 is the agreement, page 2 is the sign-in (12 people per page, print extras), page 3 is minors + the leader's wrap-up.
+3. Keep signed sheets in the event folder. They prove volunteer hours for grants. Never post filled-in sheets.
+
+Ready-made PDFs live in `forms/printable/`. To change the wording, edit `forms/signup-sheet.html` once and every sheet updates.
+
 ## Local preview
 ```
 python -m http.server 8080
