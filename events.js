@@ -346,6 +346,7 @@ function renderMap(target) {
 
   const colors = { next: '#f5b942', future: '#4ea96b', past: '#b9beb6' };
   const bounds = [];
+  let nextMarker = null;
   upcomingEvents().forEach(ev => {
     const status = statusFor(ev);
     const color = colors[status];
@@ -363,11 +364,27 @@ function renderMap(target) {
       <strong>${ev.location}</strong>
       ${fmtDate(d, { weekday:'short', month:'short', day:'numeric', year:'numeric' })}<br>
       <small>${fmtTimeRange(ev.timeStart, ev.timeEnd)} · ${ev.meet}</small>
-    `);
-    if (isNext) marker.openPopup();
+    `, { maxWidth: 240, autoPanPadding: [16, 16] });
+    if (isNext) nextMarker = marker;
     bounds.push([ev.lat, ev.lng]);
   });
-  if (bounds.length) map.fitBounds(bounds, { padding: [40, 40] });
+  /* Fit and open the next-cleanup popup once styles and layout have settled.
+     Doing it at DOMContentLoaded measured the map before its CSS applied, so on
+     phones the popup ended up hanging off the edge of the map. */
+  const settle = () => {
+    map.invalidateSize();
+    if (bounds.length) map.fitBounds(bounds, { padding: [40, 40], animate: false });
+    if (!nextMarker) return;
+    nextMarker.openPopup();
+    const size = map.getSize();
+    const pt = map.latLngToContainerPoint(nextMarker.getLatLng());
+    if (pt.x < 150 || pt.x > size.x - 150 || pt.y < 150) {
+      map.panTo(nextMarker.getLatLng(), { animate: false });
+      map.panBy([0, -Math.min(70, size.y / 6)], { animate: false });
+    }
+  };
+  if (document.readyState === 'complete') settle();
+  else window.addEventListener('load', settle, { once: true });
 }
 
 /* UTC offset for Salem on a given date (-07:00 PDT / -08:00 PST). */
